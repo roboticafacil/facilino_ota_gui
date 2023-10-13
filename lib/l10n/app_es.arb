@@ -1,0 +1,148 @@
+{
+  "@@locale" : "es",
+  "checkingCLI": "Comprobando la configuración de Arduino CLI",
+  "restoringCLI": "Restaurando Arduino CLI",
+  "reinstallCLI": "Reinstalar Arduino CLI",
+  "reinstallCLIQuestion": "¿Está seguro que quiere reinstalar Arduino CLI?",
+  "no": "No",
+  "yes": "Si",
+  "downloadingCLI": "Descargando Arduino CLI",
+  "fileDownloadedOn": "Fichero descargado en {path}",
+  "@fileDownloadedOn": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "errorCode": "Código de error: {code}",
+  "@errorCode": {
+    "placeholders": {
+      "code": {
+        "type": "num"
+      }
+    }
+  },
+  "cannotFetchURL": "No puedo obtener {url}",
+  "@cannotFetchURL": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "gettingCLIDependencies": "Obteniendo las dependencias de Facilino para Arduino CLI",
+  "configuringCLI": "Configurando Arduino CLI",
+  "installingBoards": "Instalando tarjetas soportadas por Facilino",
+  "installingLibraries": "Instalando librerías soportadas por Facilino",
+  "downloadingFile": "Descargando {file}",
+  "@downloadingFile":
+  {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "requestFailed": "La solicitud ha fallado con código: {code}",
+  "@requestFailed": {
+    "placeholders": {
+      "code": {
+        "type": "num"
+      }
+    }
+  },
+  "cliInstalled": "Arduino CLI instalado!",
+  "cliChecked": "Arduino CLI comprobado!",
+  "somethingWentWrong": "Algo fue mal :(",
+
+  "login": "Iniciar sesión",
+  "username": "Nombre de usuario",
+  "usernameHint": "Introduzca su nombre de usuario",
+  "invalidUsername": "Nombre de usuario no válido (ver https://pub.dev/packages/username_validator/example).",
+  "password": "Contraseña",
+  "passwordHint": "Introduzca su contraseña",
+  "notRegisteredYet": "¿No registrado aún?",
+  "passwordRecovery": "Recuperación de contraseña",
+  "loginToKeepChanges": "Inicie sesión para mantener los cambios",
+  "tryFacilino": "Pruebe Facilino",
+
+  "fileSavedAt": "Fichero guardado en {file}",
+  "@fileSavedAt":
+  {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+
+  "editProject": "Editar Proyecto",
+  "projectName": "Nombre del proyectp",
+  "hardware": "Tarjeta",
+  "version": "Versión",
+  "blockFilter": "Tipos de bloques",
+  "language": "Lenguaje",
+  "serverIP": "IP del servidor",
+  "deviceIP": "IP del dispositivo",
+  "projectUpdated": "Proyecto actualizado",
+  "save": "Guardar",
+
+
+  "editUser": "Editar Usuario",
+  "english": "Inglés",
+  "spanish": "Español",
+  "chooseUsername": "Escoja un nombre de usuario",
+  "email": "Correo",
+  "emailHint": "Introduzca su correo",
+  "mustBeUnique": "debe ser único",
+  "firstName": "Nombre",
+  "firstNameHint": "Nombre del usuario",
+  "lastName": "Apellido(s)",
+  "lastNameHint": "Apellido(s) del usuario",
+  "languageHint": "Lenguage de preferencia del usuario",
+  "userUpdated": "Usuario actualizado",
+
+  "facilinoSettings": "Ajustes de Facilino",
+  "detectedBoards": "Tarjetas detectadas",
+  "port": "Puerto",
+  "protocol": "Protocolo",
+  "type": "Tipo",
+  "noBoardsDetected": "No se han detectado tarjetas!",
+  "supportedHardware": "Tarjetas soportadas",
+  "id": "ID",
+  "name": "nombre",
+  "installedLibraries": "Librerías instaladas",
+  "location": "Ubicación",
+  "description": "Descripción",
+  "refresh": "Refrescar",
+
+  "addCLILibrary": "Añadir librería de Arduino CLI",
+  "author_": "Autor:",
+  "maintainer_": "Mantenedor:",
+  "website_": "Página web:",
+  "description_": "Descripción:",
+  "version_": "Versión:",
+
+  "project": "Proyecto",
+  "create": "Crear",
+  "projectCreated": "Proyecto creado",
+
+  "passwordRecoveryMsg": "Introduzca su correo para obtener un enlace para reestablecer la contraseña",
+  "sendPasswordRecoveryMail": "Enviar correo para reestablecer contraseña",
+
+  "registration": "Registro",
+  "fillFormRegistration": "Rellene el formulario y envíe su registro",
+  "submitRegistration": "Enviar registro",
+
+  "serialConsole": "Monitor serie",
+  "baudrate": "Velocidad",
+  "sendData": "Enviar datos",
+
+  "searchText": "Introduzca texto de búsqueda",
+  "libraryInstalled": "Librería instalada",
+  "libraryNotInstalled": "No se pudo instalar la librería",
+  "uninstall": "Desinstalar",
+  "libraryUninstalled": "Librería desinstalada",
+  "libraryNotUninstalled": "No se pudo desinstalar la librería"
+}

@@ -1,0 +1,149 @@
+{
+  "@@locale" : "en",
+  "checkingCLI": "Checking Arduino CLI settings",
+  "restoringCLI": "Restoring Arduino CLI",
+  "reinstallCLI": "Reinstall Arduino CLI",
+  "reinstallCLIQuestion": "Are you sure you want to reinstall Arduino CLI?",
+  "no": "No",
+  "yes": "Yes",
+  "downloadingCLI": "Downloading Arduino CLI",
+  "fileDownloadedOn": "File downloaded on {path}",
+  "@fileDownloadedOn": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "errorCode": "Error code: {code}",
+  "@errorCode": {
+    "placeholders": {
+      "code": {
+        "type": "num"
+      }
+    }
+  },
+  "cannotFetchURL": "Can not fetch {url}",
+  "@cannotFetchURL": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "gettingCLIDependencies": "Getting Facilino's Arduino CLI dependencies",
+  "configuringCLI": "Configuring Arduino CLI",
+  "installingBoards": "Installing Facilino supported boards",
+  "installingLibraries": "Installing Facilino supported libraries",
+  "downloadingFile": "Downloading {file}",
+  "@downloadingFile":
+  {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "requestFailed": "Request failed with status: {code}",
+  "@requestFailed": {
+    "placeholders": {
+      "code": {
+        "type": "num"
+      }
+    }
+  },
+  "cliInstalled": "Arduino CLI installed!",
+  "cliChecked": "Arduino CLI checked!",
+  "somethingWentWrong": "Something went wrong :(",
+
+
+  "login": "Login",
+  "username": "Username",
+  "usernameHint": "Introduce your username",
+  "invalidUsername": "Invalid username (see https://pub.dev/packages/username_validator/example).",
+  "password": "Password",
+  "passwordHint": "Enter your password",
+  "notRegisteredYet": "Not registered yet?",
+  "passwordRecovery": "Password recovery",
+  "loginToKeepChanges": "Login to keep changes",
+  "tryFacilino": "Try Facilino",
+
+  "fileSavedAt": "File saved at {file}",
+  "@fileSavedAt":
+  {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+
+  "editProject": "Edit Project",
+  "projectName": "Project Name",
+  "hardware": "Hardware",
+  "version": "Version",
+  "blockFilter": "Block Filter",
+  "language": "Language",
+  "serverIP": "Server IP",
+  "deviceIP": "Device IP",
+  "projectUpdated": "Project updated",
+  "save": "Save",
+
+
+  "editUser": "Edit User",
+  "english": "English",
+  "spanish": "Spanish",
+  "chooseUsername": "Choose a username",
+  "email": "Email",
+  "emailHint": "Enter your email",
+  "mustBeUnique": "must be unique",
+  "firstName": "First Name",
+  "firstNameHint": "User's first name",
+  "lastName": "Last Name",
+  "lastNameHint": "User's last name",
+  "languageHint": "User's preferred language",
+  "userUpdated": "User updated",
+
+  "facilinoSettings": "Facilino Settings",
+  "detectedBoards": "Detected Boards",
+  "port": "Port",
+  "protocol": "Protocol",
+  "type": "Type",
+  "noBoardsDetected": "No boards detected!",
+  "supportedHardware": "Supported Hardware",
+  "id": "ID",
+  "name": "name",
+  "installedLibraries": "Installed libraries",
+  "location": "Location",
+  "description": "Description",
+  "refresh": "Refresh",
+
+  "addCLILibrary": "Add Arduino CLI Library",
+  "author_": "Author:",
+  "maintainer_": "Maintainer:",
+  "website_": "Website:",
+  "description_": "Description:",
+  "version_": "Version:",
+
+  "project": "Project",
+  "create": "Create",
+  "projectCreated": "Project created",
+
+  "passwordRecoveryMsg": "Enter your email to get a link to reset the password",
+  "sendPasswordRecoveryMail": "Send password recovery email",
+
+  "registration": "Registration",
+  "fillFormRegistration": "Fill the form and submit your registration",
+  "submitRegistration": "Submit registration",
+
+  "serialConsole": "Serial Console",
+  "baudrate": "Baudrate",
+  "sendData": "Send data",
+
+  "searchText": "Enter search text",
+  "libraryInstalled": "Library installed",
+  "libraryNotInstalled": "Library could not be installed",
+  "uninstall": "Uninstall",
+  "libraryUninstalled": "Library uninstalled",
+  "libraryNotUninstalled": "Library could not be uninstalled"
+}
