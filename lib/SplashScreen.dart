@@ -23,25 +23,28 @@ class _SplashScreenState extends State<SplashScreen> {
    final String arduinoCLIURL='https://facilino.webs.upv.es/arduino-cli/arduino-cli.exe';
    late Future<String> message;
    late Future<String> sub_message;
+   late Future<String> steps;
 
   checkArduinoCLI() async {
-    String arduino_cli_exe='';
+    String arduinoCliExe='';
     setState(() {
       message=Future<String> (() => AppLocalizations.of(context)!.checkingCLI);
+      steps=Future<String> (()=> "");
       sub_message = Future<String>(() => "");
     });
     ArduinoCLI.initializeShell();
 
     String arduinoCliDir=ArduinoCLI.getArduinoCLIDir();
-    arduino_cli_exe=ArduinoCLI.getArduinoCLIPath();
+    arduinoCliExe=ArduinoCLI.getArduinoCLIPath();
 
-    bool no_errors=true;
+    bool noErrors=true;
 
     if ((await Directory(arduinoCliDir).exists())&&(widget.overwrite))
     {
       await Directory(arduinoCliDir).delete(recursive: true);
       setState(() {
         message=Future<String> (() => AppLocalizations.of(context)!.restoringCLI);
+        steps = Future<String>(() => "");
         sub_message = Future<String>(() => "");
       });
       await Future.delayed(const Duration(seconds: 1));
@@ -51,6 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
     {
       setState(() {
         message=Future<String> (() => AppLocalizations.of(context)!.downloadingCLI);
+        steps = Future<String>(() => "");
         sub_message = Future<String>(() => "");
       });
       await Directory.fromUri(Uri.directory(arduinoCliDir)).create(recursive: true);
@@ -62,39 +66,43 @@ class _SplashScreenState extends State<SplashScreen> {
         if(response.statusCode == 200) {
           var bytes = await consolidateHttpClientResponseBytes(response);
           if (Platform.isWindows) {
-            file = File('$arduino_cli_exe.exe');
+            file = File('$arduinoCliExe.exe');
           } else {
-            file = File(arduino_cli_exe);
+            file = File(arduinoCliExe);
           }
           setState(() {
+            steps = Future<String>(() => "");
             sub_message=Future<String> (() => AppLocalizations.of(context)!.fileDownloadedOn(file.path));
           });
           await file.writeAsBytes(bytes);
         }
         else {
-          no_errors=false;
+          noErrors=false;
           setState(() {
+            steps = Future<String>(() => "");
             sub_message=Future<String> (() => AppLocalizations.of(context)!.errorCode(response.statusCode));
           });
           debugPrint('Error code: ${response.statusCode}');
         }
       }
       catch(ex){
-        no_errors=false;
+        noErrors=false;
         setState(() {
+          steps = Future<String>(() => "");
           sub_message=Future<String> (() => AppLocalizations.of(context)!.cannotFetchURL(arduinoCLIURL));
         });
         debugPrint('Can not fetch url');
       }
     }
 
-    if (no_errors) {
-      String cmd = widget.overwrite? '$arduino_cli_exe config init --overwrite' : '$arduino_cli_exe config init';
+    if (noErrors) {
+      String cmd = widget.overwrite? '$arduinoCliExe config init --overwrite' : '$arduinoCliExe config init';
       try {
         await shell.run(cmd);
         setState(() {
           message = Future<
               String>(() => AppLocalizations.of(context)!.gettingCLIDependencies);
+          steps = Future<String>(() => "");
           sub_message = Future<String>(() => "");
         });
         await Future.delayed(const Duration(seconds: 1));
@@ -107,42 +115,51 @@ class _SplashScreenState extends State<SplashScreen> {
           });
           //First set directories for Arduino CLI
           cmd =
-          '$arduino_cli_exe config set directories.data $arduinoCliDir${Platform
+          '$arduinoCliExe config set directories.data $arduinoCliDir${Platform
               .pathSeparator}Arduino15';
           List<ProcessResult> res = await shell.run(cmd);
           debugPrint(utf8.decode(res.outText.runes.toList()));
           cmd =
-          '$arduino_cli_exe config set directories.downloads $arduinoCliDir${Platform
+          '$arduinoCliExe config set directories.downloads $arduinoCliDir${Platform
               .pathSeparator}Arduino15${Platform.pathSeparator}staging';
           res = await shell.run(cmd);
           debugPrint(utf8.decode(res.outText.runes.toList()));
           cmd =
-          '$arduino_cli_exe config set library.enable_unsafe_install true';
+          '$arduinoCliExe config set library.enable_unsafe_install true';
           res = await shell.run(cmd);
           debugPrint(utf8.decode(res.outText.runes.toList()));
           cmd =
-          '$arduino_cli_exe config set locale en_US';
+          '$arduinoCliExe config set locale en_US';
           res = await shell.run(cmd);
           debugPrint(utf8.decode(res.outText.runes.toList()));
+          var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
+          List<dynamic> coreList=jsonResponse['core'] as List<dynamic>;
+          List<dynamic> libList=jsonResponse['libs'] as List<dynamic>;
+          int numSteps=coreList.length+libList.length;
+          int currentStep=0;
           //Now, install core boards
           setState(() {
             message =
                 Future<String>(() => AppLocalizations.of(context)!.installingBoards);
+              steps = Future<String> (() => '$currentStep/$numSteps');
           });
           await Future.delayed(const Duration(seconds: 1));
-          var jsonResponse =
-          convert.jsonDecode(response.body) as Map<String, dynamic>;
+
           debugPrint(jsonResponse.toString());
-          for (var instruction in jsonResponse['core']) {
-            String sub_cmd = instruction as String;
+          for (var instruction in coreList) {
+            String subCmd=instruction as String;
+            currentStep++;
             try {
-              cmd = '$arduino_cli_exe $sub_cmd';
+              cmd = '$arduinoCliExe $subCmd';
               setState(() {
+                steps = Future<String> (() => '$currentStep/$numSteps');
                 sub_message = Future<String>(() => cmd);
               });
               res = await shell.run(cmd);
               for (var r in res) {
                 setState(() {
+                  steps = Future<String> (() => '$currentStep/$numSteps');
                   sub_message = Future<String>(() => utf8.decode(res.outText.runes.toList()));
                 });
                 debugPrint(res.outText);
@@ -151,6 +168,7 @@ class _SplashScreenState extends State<SplashScreen> {
               debugPrint(cmd);
               debugPrint(error.result!.errText);
               setState(() {
+                steps = Future<String> (() => '$currentStep/$numSteps');
                 sub_message = Future<String>(() => utf8.decode(error.result!.errText.runes.toList()) );
               });
 
@@ -169,14 +187,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
           await Future.delayed(const Duration(seconds: 1));
 
-          for (var instruction in jsonResponse['libs']) {
-            String sub_cmd = instruction as String;
-            if (sub_cmd.contains("--zip-path")) {
-              List<String> c = sub_cmd.split(" ");
+          for (var instruction in libList) {
+            String subCmd=instruction as String;
+            currentStep++;
+            if (subCmd.contains("--zip-path")) {
+              List<String> c = subCmd.split(" ");
               String libFile = c[3];
               HttpClient httpClient = HttpClient();
               File file;
               setState(() {
+                steps = Future<String> (() => '$currentStep/$numSteps');
                 sub_message = Future<
                     String>(() => AppLocalizations.of(context)!.downloadingFile('https://facilino.webs.upv.es/arduino-cli/$libFile'));
               });
@@ -192,19 +212,22 @@ class _SplashScreenState extends State<SplashScreen> {
             }
 
             try {
-              cmd = '$arduino_cli_exe $sub_cmd';
+              cmd = '$arduinoCliExe $subCmd';
               setState(() {
+                steps = Future<String> (() => '$currentStep/$numSteps');
                 sub_message = Future<String>(() => cmd);
               });
               res = await shell.run(cmd);
               for (var r in res) {
                 setState(() {
+                  steps = Future<String> (() => '$currentStep/$numSteps');
                   sub_message = Future<String>(() => utf8.decode(res.outText.runes.toList()) );
                 });
                 debugPrint(res.outText);
               }
             } on ShellProcessRun.ShellException catch (error) {
               setState(() {
+                steps = Future<String> (() => '$currentStep/$numSteps');
                 sub_message = Future<String>(() => utf8.decode(error.result!.errText.runes.toList()) );
               });
               debugPrint(error.result!.errText);
@@ -213,6 +236,7 @@ class _SplashScreenState extends State<SplashScreen> {
           setState(() {
             message =
                 Future<String>(() => AppLocalizations.of(context)!.cliInstalled);
+            steps = Future<String> (() => "");
             sub_message = Future<String>(() => "");
           });
 
@@ -280,6 +304,18 @@ class _SplashScreenState extends State<SplashScreen> {
         return Text(snapshot.data!);
         },
         future: message
+      ),
+      FutureBuilder<String>(
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+            if (!snapshot.hasData) {
+              return Container();
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text(AppLocalizations.of(context)!.somethingWentWrong));
+            }
+            return Text(snapshot.data!,style: const TextStyle(fontSize: 10));
+          },
+          future: steps
       ),
       FutureBuilder<String>(
           builder: (BuildContext context, AsyncSnapshot<String> snapshot){

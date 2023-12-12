@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Facilino OTA"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "UPV"
 #define MyAppURL "facilino.webs.upv.es"
 #define MyAppExeName "facilino_ota_gui.exe"
@@ -69,3 +69,6 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\*"
+Type: filesandordirs; Name: "{app}"
+Type: files; Name :"{localappdata}\Arduino15\arduino-cli.yaml"
+Type: files; Name :"{localappdata}\Arduino15\inventory.yaml"
