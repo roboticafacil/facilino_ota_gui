@@ -23,7 +23,15 @@ class ArduinoCLI
   {
     if (Platform.isLinux||Platform.isWindows||Platform.isMacOS) {
       var controller = ShellProcessRun.ShellLinesController();
-      shell = ShellProcessRun.Shell(stdout: controller.sink, verbose: true);
+      //if (Platform.isLinux) {
+      //  var env = ShellProcessRun.ShellEnvironment()..aliases['sudo']='sudo --stdin';
+      //  var stdin = ShellProcessRun.sharedStdIn;
+      //  shell = ShellProcessRun.Shell(stdin: stdin, environment: env, stdout: controller.sink, verbose: true);
+      //}
+      //else
+      //  {
+          shell = ShellProcessRun.Shell(stdout: controller.sink, verbose: true);
+      //  }
     }
   }
 

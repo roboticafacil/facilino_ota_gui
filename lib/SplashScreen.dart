@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+//import 'dart:html';
 
 import 'util/ArduinoCLI.dart';
 import 'package:flutter/foundation.dart';
@@ -20,7 +21,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-   final String arduinoCLIURL='https://facilino.webs.upv.es/arduino-cli/arduino-cli.exe';
+   final String arduinoCLIURL=Platform.isWindows? 'https://facilino.webs.upv.es/arduino-cli/arduino-cli.exe' : 'https://facilino.webs.upv.es/arduino-cli/arduino-cli';
    late Future<String> message;
    late Future<String> sub_message;
    late Future<String> steps;
@@ -75,6 +76,11 @@ class _SplashScreenState extends State<SplashScreen> {
             sub_message=Future<String> (() => AppLocalizations.of(context)!.fileDownloadedOn(file.path));
           });
           await file.writeAsBytes(bytes);
+          if (Platform.isLinux)
+            {
+              debugPrint('Setting Arduino CLI as an executable file');
+              shell.run('chmod +x $arduinoCliExe');
+            }
         }
         else {
           noErrors=false;
@@ -96,6 +102,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     if (noErrors) {
+      //String cmd = widget.overwrite? (Platform.isWindows? '$arduinoCliExe config init --overwrite':'sudo $arduinoCliExe config init --overwrite') : (Platform.isWindows? '$arduinoCliExe config init':'sudo $arduinoCliExe config init');
       String cmd = widget.overwrite? '$arduinoCliExe config init --overwrite' : '$arduinoCliExe config init';
       try {
         await shell.run(cmd);

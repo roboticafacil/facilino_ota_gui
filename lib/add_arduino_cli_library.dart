@@ -5,7 +5,6 @@ import 'util/NewLibrary.dart';
 import 'package:flutter/material.dart';
 import 'util/ArduinoCLI.dart';
 import 'package:process_run/shell.dart' as ShellProcessRun;
-import 'package:vertical_card_pager/vertical_card_pager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddArduinoCLILibrary extends StatefulWidget {
